@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/new/static">
+        <file>config.json</file>
+    </qresource>
+</RCC>

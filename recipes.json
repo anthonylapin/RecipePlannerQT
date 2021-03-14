@@ -1,0 +1,16 @@
+[
+	{
+		"name": "omlette",
+		"instruction": "Whisk eggs, water, salt and pepper.Spray 8-inch (20 cm) non-stick skillet with cooking spray. ...When eggs are almost set on surface but still look moist, cover half of omelette with filling. ...Cook for a minute, then slide omelette onto plate.(Nutrients per serving as per without filling)",
+		"ingredients": [
+			{
+				"name": "eggs",
+				"quantity": "3.0 pcs"
+			},
+			{
+				"name": "water",
+				"quantity": "0.03 l"
+			}
+		]
+	}
+]
