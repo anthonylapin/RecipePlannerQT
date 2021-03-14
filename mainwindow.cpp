@@ -6,6 +6,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    foreach(auto recipe, _recipeContext.getRecipes()) {
+        ui->recipesList->addItem(recipe.getName());
+    }
 }
 
 MainWindow::~MainWindow()

@@ -2,6 +2,7 @@
 #define INGREDIENT_H
 
 #include <QString>
+#include <QJsonObject>
 
 class Ingredient
 {

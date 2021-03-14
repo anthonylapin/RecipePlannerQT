@@ -3,14 +3,6 @@
 RecipeContext::RecipeContext()
 {
     initializeRecipesList();
-
-//    QJsonObject o = arr[0].toObject();
-
-//    qWarning() << o["name"].toString();
-
-//    QJsonArray ingredients = o["ingredients"].toArray();
-//    QJsonObject ingredient = ingredients[1].toObject();
-//    qWarning() << ingredient["name"].toString();
 }
 
 QJsonDocument RecipeContext::readJsonDocument(QString fileName) {
@@ -36,18 +28,37 @@ QJsonArray RecipeContext::getRecipesJsonArray() {
     return recipesDoc.array();
 }
 
+Ingredient RecipeContext::parseJsonIngredient(QJsonObject ingredientJson) {
+    QString name = ingredientJson["name"].toString();
+    QString quantity = ingredientJson["quantity"].toString();
+    return Ingredient(name, quantity);
+}
+
+Recipe RecipeContext::parseJsonRecipe(QJsonObject recipeJson) {
+    Recipe recipe;
+
+    recipe.setName(recipeJson["name"].toString());
+    recipe.setInstruction(recipeJson["instruction"].toString());
+
+    QJsonArray ingredientsJson = recipeJson["ingredients"].toArray();
+    for(auto&& ingredientRef : ingredientsJson) {
+        QJsonObject ingredientJson = ingredientRef.toObject();
+        Ingredient ingredient = parseJsonIngredient(ingredientJson);
+        recipe.addIngredient(ingredient);
+    }
+
+    return recipe;
+}
+
 void RecipeContext::initializeRecipesList() {
     QJsonArray recipesJsonArr = getRecipesJsonArray();
-    for(auto&& item : recipesJsonArr) {
-        QJsonObject obj = item.toObject();
-        Recipe recipe;
-
-        qWarning() << obj["name"].toString();
-        qWarning() << obj["instruction"].toString();
-        QJsonArray ingredients = obj["ingredients"].toArray();
-        for(auto&& ingredient : ingredients) {
-            QJsonObject ing = ingredient.toObject();
-            qWarning() << ing["name"].toString() << ing["quantity"].toString();;
-        }
+    for(auto&& recipeJsonRef : recipesJsonArr) {
+        QJsonObject recipeJson = recipeJsonRef.toObject();
+        Recipe recipe = parseJsonRecipe(recipeJson);
+        _recipes.append(recipe);
     }
+}
+
+QList<Recipe> RecipeContext::getRecipes() {
+    return _recipes;
 }

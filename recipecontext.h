@@ -12,7 +12,7 @@ class RecipeContext
 {
 public:
     RecipeContext();
-
+    QList<Recipe> getRecipes();
 private:
     QList<Recipe> _recipes;
 
@@ -20,6 +20,8 @@ private:
     QString getRecipesFilePath();
     QJsonArray getRecipesJsonArray();
     void initializeRecipesList();
+    Ingredient parseJsonIngredient(QJsonObject ingredientJson);
+    Recipe parseJsonRecipe(QJsonObject recipeJson);
 };
 
 #endif // RECIPECONTEXT_H
