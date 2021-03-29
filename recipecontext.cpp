@@ -31,7 +31,8 @@ QJsonArray RecipeContext::getRecipesJsonArray() {
 Ingredient RecipeContext::parseJsonIngredient(QJsonObject ingredientJson) {
     QString name = ingredientJson["name"].toString();
     QString quantity = ingredientJson["quantity"].toString();
-    return Ingredient(name, quantity);
+    QString measurementVal = ingredientJson["measurementValue"].toString();
+    return Ingredient(name, quantity, measurementVal);
 }
 
 Recipe RecipeContext::parseJsonRecipe(QJsonObject recipeJson) {
@@ -61,4 +62,16 @@ void RecipeContext::initializeRecipesList() {
 
 QList<Recipe> RecipeContext::getRecipes() {
     return _recipes;
+}
+
+void RecipeContext::updateRecipeAt(int index, Recipe recipe) {
+    _recipes.replace(index, recipe);
+}
+
+void RecipeContext::addRecipe(Recipe recipe) {
+    _recipes.append(recipe);
+}
+
+void RecipeContext::saveChanges() {
+    // todo: write _recipes to json
 }

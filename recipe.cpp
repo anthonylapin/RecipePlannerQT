@@ -31,6 +31,14 @@ void Recipe::setInstruction(QString instruction) {
     _instruction = instruction;
 }
 
+void Recipe::setIngredients(QList<Ingredient> ingredients) {
+    _ingredients = ingredients;
+}
+
 void Recipe::addIngredient(Ingredient ingredient) {
     _ingredients.append(ingredient);
+}
+
+void Recipe::removeIngredient(int index) {
+    _ingredients.removeAt(index);
 }

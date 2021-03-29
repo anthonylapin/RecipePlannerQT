@@ -13,6 +13,9 @@ class RecipeContext
 public:
     RecipeContext();
     QList<Recipe> getRecipes();
+    void updateRecipeAt(int index, Recipe recipe);
+    void addRecipe(Recipe recipe);
+    void saveChanges();
 private:
     QList<Recipe> _recipes;
 

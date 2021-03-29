@@ -5,11 +5,13 @@
 		"ingredients": [
 			{
 				"name": "eggs",
-				"quantity": "3.0 pcs"
+				"quantity": "3.0",
+				"measurementValue": "pcs"
 			},
 			{
 				"name": "water",
-				"quantity": "0.03 l"
+				"quantity": "0.03",
+				"measurementValue": "l"
 			}
 		]
 	}
