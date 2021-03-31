@@ -21,6 +21,8 @@ public:
 
     void addIngredient(Ingredient ingredient);
     void removeIngredient(int index);
+    void updateIngredientAt(int index, Ingredient ingredient);
+    int findIngredient(QString name, QString measurementVal);
 private:
     QString _name;
     QString _instruction;

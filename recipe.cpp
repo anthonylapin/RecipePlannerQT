@@ -42,3 +42,17 @@ void Recipe::addIngredient(Ingredient ingredient) {
 void Recipe::removeIngredient(int index) {
     _ingredients.removeAt(index);
 }
+
+void Recipe::updateIngredientAt(int index, Ingredient ingredient) {
+    _ingredients.replace(index, ingredient);
+}
+
+int Recipe::findIngredient(QString name, QString measurementVal) {
+    for (int i = 0; i < _ingredients.count(); i++) {
+        if(_ingredients[i].getName() == name && _ingredients[i].getMeasurementValue() == measurementVal) {
+            return i;
+        }
+    }
+
+    return -1;
+}

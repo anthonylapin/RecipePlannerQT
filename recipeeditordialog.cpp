@@ -15,15 +15,13 @@ RecipeEditorDialog::RecipeEditorDialog(QWidget *parent, Recipe *recipe) :
         _recipe = new Recipe();
         setWindowTitle("Add Recipe");
     }
-
-    //ui->btnAddIngredient->setDisabled(true); // enable when ingredient input values are not empty.
-    //ui->btnDeleteIngredient->setDisabled(true); // enable when ingredient input values are not empty.
 }
 
 void RecipeEditorDialog::initializeFields() {
     ui->lineRecipeName->setText(_recipe->getName());
     ui->txtRecipeInstruction->setText(_recipe->getInstruction());
 
+    ui->listIngredients->clear();
     foreach(auto ingredient, _recipe->getIngredients()) {
         ui->listIngredients->addItem(ingredient.getShowName());
     }
@@ -37,13 +35,37 @@ RecipeEditorDialog::~RecipeEditorDialog()
 
 void RecipeEditorDialog::on_btnAddIngredient_clicked()
 {
-    QString amount = ui->lineIngredientAmount->text();
     QString name = ui->lineIngredientName->text();
+    QString amount = ui->lineIngredientAmount->text();
     QString measurementVal = ui->lineIngredientMeasurement->text();
-    bool inputError = false;
 
-    if (!QRegExp("\\d*").exactMatch(amount) || amount.isEmpty()) {
-        QMessageBox::warning(this, "Ingredient input warning", "Ingredient amount value must be numeric.");
+    if (validateIngredientInput(name, amount, measurementVal)) return;
+
+    double amountNumeric = amount.toDouble();
+
+    int indexOfIngredient = _recipe->findIngredient(name, measurementVal);
+
+    if(indexOfIngredient >= 0) {
+        QList<Ingredient> ingredients = _recipe->getIngredients();
+        amountNumeric += ingredients[indexOfIngredient].getQuantity().toDouble();
+        Ingredient ingredientToUpdate = Ingredient(name, QString::number(amountNumeric), measurementVal);
+        _recipe->updateIngredientAt(indexOfIngredient, ingredientToUpdate);
+        initializeFields();
+    } else {
+        Ingredient ingredientToAdd = Ingredient(name, QString::number(amountNumeric), measurementVal);
+        _recipe->addIngredient(ingredientToAdd);
+        ui->listIngredients->addItem(ingredientToAdd.getShowName());
+    }
+}
+
+bool RecipeEditorDialog::validateIngredientInput(QString name, QString amount, QString measurementVal) {
+    bool inputError = false;
+    bool validateAmount;
+
+    double amountNumeric = amount.toDouble(&validateAmount);
+
+    if (!validateAmount || amountNumeric <= 0) {
+        QMessageBox::warning(this, "Ingredient input warning", "Ingredient amount value must be numeric and greater than 0.");
         inputError = true;
     }
     if (name.isEmpty()) {
@@ -55,11 +77,7 @@ void RecipeEditorDialog::on_btnAddIngredient_clicked()
         inputError = true;
     }
 
-    if (inputError) return;
-
-    auto ingredientToAdd = Ingredient(name, amount, measurementVal);
-    _recipe->addIngredient(ingredientToAdd);
-    ui->listIngredients->addItem(ingredientToAdd.getShowName());
+    return inputError;
 }
 
 void RecipeEditorDialog::on_btnDeleteIngredient_clicked()

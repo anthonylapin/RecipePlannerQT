@@ -72,6 +72,44 @@ void RecipeContext::addRecipe(Recipe recipe) {
     _recipes.append(recipe);
 }
 
+QJsonDocument RecipeContext::parseRecipesToJsonDocument() {
+    QJsonArray recipesJsonArr;
+
+    foreach(Recipe recipe, _recipes) {
+        QJsonObject recipeJson;
+
+        QJsonArray ingredientsJson;
+        foreach(Ingredient ingredient, recipe.getIngredients()) {
+            QJsonObject ingredientJson;
+            ingredientJson.insert("name", ingredient.getName());
+            ingredientJson.insert("quantity", ingredient.getQuantity());
+            ingredientJson.insert("measurementValue", ingredient.getMeasurementValue());
+
+            ingredientsJson.append(ingredientJson);
+        }
+
+        recipeJson.insert("name", recipe.getName());
+        recipeJson.insert("instruction", recipe.getInstruction());
+        recipeJson.insert("ingredients", ingredientsJson);
+
+        recipesJsonArr.append(recipeJson);
+    }
+
+    QJsonDocument db;
+    db.setArray(recipesJsonArr);
+    return db;
+}
+
+void RecipeContext::saveChangesToJsonFile(QJsonDocument doc) {
+    QString fileName = getRecipesFilePath();
+    QFile file;
+    file.setFileName(fileName);
+    file.open(QIODevice::ReadWrite);
+    file.write(doc.toJson());
+    file.close();
+}
+
 void RecipeContext::saveChanges() {
-    // todo: write _recipes to json
+   QJsonDocument doc = parseRecipesToJsonDocument();
+   saveChangesToJsonFile(doc);
 }

@@ -32,6 +32,7 @@ void MainWindow::on_addRecipeButton_clicked()
     _recipeEditorDialog->show();
     if (_recipeEditorDialog->exec() == QDialog::Accepted) {
         _recipeContext.addRecipe(r);
+        _recipeContext.saveChanges();
         setRecipesListWidget();
     }
 }
@@ -46,6 +47,7 @@ void MainWindow::on_btnEditRecipe_clicked()
 
     if (_recipeEditorDialog->exec() == QDialog::Accepted) {
         _recipeContext.updateRecipeAt(currElemId, currElem);
+        _recipeContext.saveChanges();
         setRecipesListWidget();
     }
 }

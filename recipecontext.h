@@ -25,6 +25,8 @@ private:
     void initializeRecipesList();
     Ingredient parseJsonIngredient(QJsonObject ingredientJson);
     Recipe parseJsonRecipe(QJsonObject recipeJson);
+    void saveChangesToJsonFile(QJsonDocument doc);
+    QJsonDocument parseRecipesToJsonDocument();
 };
 
 #endif // RECIPECONTEXT_H

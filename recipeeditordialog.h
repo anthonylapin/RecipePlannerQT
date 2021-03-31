@@ -33,6 +33,7 @@ private:
     Recipe* _recipe;
 
     void initializeFields();
+    bool validateIngredientInput(QString name, QString amount, QString measurementVal);
 };
 
 #endif // RECIPEEDITORDIALOG_H
