@@ -2,7 +2,6 @@
 
 Recipe::Recipe()
 {
-
 }
 
 Recipe::Recipe(QString name, QString instruction) {

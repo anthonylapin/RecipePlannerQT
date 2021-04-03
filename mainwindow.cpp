@@ -17,9 +17,22 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_actionExit_triggered()
-{
-    QApplication::quit();
+void MainWindow::setButtonsVisibility() {
+    if(_recipeContext.getRecipes().count() == 0) {
+        ui->btnEditRecipe->setDisabled(true);
+        ui->btnDeleteRecipe->setDisabled(true);
+    } else {
+        ui->btnEditRecipe->setDisabled(false);
+        ui->btnDeleteRecipe->setDisabled(false);
+    }
+}
+
+void MainWindow::setRecipesListWidget() {
+    ui->recipesList->clear();
+
+    foreach(auto recipe, _recipeContext.getRecipes()) {
+        ui->recipesList->addItem(recipe.getName());
+    }
 }
 
 void MainWindow::on_addRecipeButton_clicked()
@@ -30,6 +43,7 @@ void MainWindow::on_addRecipeButton_clicked()
     if (_recipeEditorDialog->exec() == QDialog::Accepted) {
         _recipeContext.addRecipe(r);
         _recipeContext.saveChanges();
+        setButtonsVisibility();
         setRecipesListWidget();
     }
 }
@@ -45,32 +59,8 @@ void MainWindow::on_btnEditRecipe_clicked()
     if (_recipeEditorDialog->exec() == QDialog::Accepted) {
         _recipeContext.updateRecipeAt(currElemId, currElem);
         _recipeContext.saveChanges();
+        setButtonsVisibility();
         setRecipesListWidget();
-    }
-}
-
-void MainWindow::on_actionCreate_Shopping_List_triggered()
-{
-    _shoppingCartDialog = new ShoppingCartDialog(this, _recipeContext.getRecipes());
-    _shoppingCartDialog->show();
-
-    if(_shoppingCartDialog->exec() == QDialog::Accepted) {
-        QMessageBox::information(this, "Ingredients to buy", _shoppingCartDialog->getShoppingCart());
-    }
-}
-
-void MainWindow::setRecipesListWidget() {
-    ui->btnEditRecipe->setDisabled(true);
-    ui->recipesList->clear();
-    foreach(auto recipe, _recipeContext.getRecipes()) {
-        ui->recipesList->addItem(recipe.getName());
-    }
-}
-
-void MainWindow::on_recipesList_currentRowChanged(int currentRow)
-{
-    if (currentRow > -1) {
-        ui->btnEditRecipe->setDisabled(false);
     }
 }
 
@@ -82,9 +72,25 @@ void MainWindow::on_btnDeleteRecipe_clicked()
         _recipeContext.deleteRecipe(currElemId);
         _recipeContext.saveChanges();
         QMessageBox::information(this, "Delete recipe", "Recipe was deleted successfully!");
+        setButtonsVisibility();
         setRecipesListWidget();
     } else {
         QMessageBox::warning(this, "Delete recipe", "Error ocurred while deleting recipe.");
     }
+}
 
+void MainWindow::on_actionCreate_Shopping_List_triggered()
+{
+    _shoppingCartDialog = new ShoppingCartDialog(this, _recipeContext.getRecipes());
+    _shoppingCartDialog->show();
+
+    if(_shoppingCartDialog->exec() == QDialog::Accepted) {
+        QString shoppingCartStr = _shoppingCartDialog->getShoppingCart();
+        QMessageBox::information(this, "Ingredients To Buy", shoppingCartStr);
+    }
+}
+
+void MainWindow::on_actionExit_triggered()
+{
+    QApplication::quit();
 }

@@ -7,15 +7,13 @@ RecipeEditorDialog::RecipeEditorDialog(QWidget *parent, Recipe *recipe, QString 
 {
     ui->setupUi(this);
 
-    if (recipe != nullptr) {
-        setWindowTitle("Edit Recipe");
-        _recipe = recipe;
-        initializeFields();
-    } else {
-        _recipe = new Recipe();
-    }
+    _recipe = recipe;
+
+    initializeFields();
 
     setWindowTitle(title);
+
+    setOkButtonEnability();
 }
 
 RecipeEditorDialog::~RecipeEditorDialog()
@@ -102,9 +100,19 @@ void RecipeEditorDialog::on_btnDeleteIngredient_clicked()
 void RecipeEditorDialog::on_lineRecipeName_textChanged(const QString &arg1)
 {
     _recipe->setName(arg1);
+    setOkButtonEnability();
 }
 
 void RecipeEditorDialog::on_txtRecipeInstruction_textChanged()
 {
     _recipe->setInstruction(ui->txtRecipeInstruction->toPlainText());
+    setOkButtonEnability();
+}
+
+void RecipeEditorDialog::setOkButtonEnability() {
+    if(ui->lineRecipeName->text() == "" || ui->txtRecipeInstruction->toPlainText() == "") {
+        ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+    } else {
+        ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+    }
 }

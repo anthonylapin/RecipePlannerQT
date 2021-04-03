@@ -30,14 +30,18 @@ private slots:
 
 private:
     Ui::RecipeEditorDialog *ui;
+
     Recipe* _recipe;
 
     void initializeFields();
+
     void initializeIngredientList();
 
     bool validateIngredientInput(QString name, QString amount, QString measurementVal);
 
     void clearIngredientInputFields();
+
+    void setOkButtonEnability();
 };
 
 #endif // RECIPEEDITORDIALOG_H

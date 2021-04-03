@@ -48,8 +48,23 @@
     },
     {
         "ingredients": [
+            {
+                "measurementValue": "slice",
+                "name": "bread",
+                "quantity": "1"
+            },
+            {
+                "measurementValue": "slice",
+                "name": "ham",
+                "quantity": "1"
+            },
+            {
+                "measurementValue": "slice",
+                "name": "cheese",
+                "quantity": "1"
+            }
         ],
-        "instruction": "",
-        "name": ""
+        "instruction": "Put ham and cheese on a bread.\t",
+        "name": "sandwitch"
     }
 ]

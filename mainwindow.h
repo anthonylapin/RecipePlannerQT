@@ -27,17 +27,19 @@ private slots:
 
     void on_btnEditRecipe_clicked();
 
-    void on_recipesList_currentRowChanged(int currentRow);
-
     void on_btnDeleteRecipe_clicked();
 
 private:
     Ui::MainWindow *ui;
 
     RecipeContext _recipeContext;
+
     RecipeEditorDialog* _recipeEditorDialog;
+
     ShoppingCartDialog* _shoppingCartDialog;
 
     void setRecipesListWidget();
+
+    void setButtonsVisibility();
 };
 #endif // MAINWINDOW_H

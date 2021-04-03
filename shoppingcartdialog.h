@@ -2,6 +2,7 @@
 #define SHOPPINGCARTDIALOG_H
 
 #include <QDialog>
+#include <QListWidgetItem>
 #include "recipe.h"
 #include "ingredient.h"
 
@@ -15,9 +16,10 @@ class ShoppingCartDialog : public QDialog
 
 public:
     explicit ShoppingCartDialog(QWidget *parent = nullptr, QList<Recipe> recipes = QList<Recipe>());
-    ~ShoppingCartDialog();
-    QString getShoppingCart();
 
+    ~ShoppingCartDialog();
+
+    QString getShoppingCart();
 private slots:
     void on_btnAddToShopCart_clicked();
 
@@ -25,7 +27,9 @@ private slots:
 
 private:
     Ui::ShoppingCartDialog *ui;
+
     QList<Recipe> _recipes;
+
     QList<Ingredient> _shoppingCart;
 
     void initializeFields();

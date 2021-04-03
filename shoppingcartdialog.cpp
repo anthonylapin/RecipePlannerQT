@@ -74,8 +74,14 @@ void ShoppingCartDialog::addRecipeIngredientsToShoppingCart(Recipe recipe) {
 
 QString ShoppingCartDialog::getShoppingCart() {
     QString cartStr;
-    foreach(Ingredient ingredient, _shoppingCart) {
-        cartStr = cartStr + ingredient.getShowName() + "\n";
+
+    if (_shoppingCart.count() == 0) {
+        cartStr = "No recipes were selected to create a shopping cart list.";
+    } else {
+        foreach(Ingredient ingredient, _shoppingCart) {
+            cartStr = cartStr + ingredient.getShowName() + "\n";
+        }
     }
+
     return cartStr;
 }
