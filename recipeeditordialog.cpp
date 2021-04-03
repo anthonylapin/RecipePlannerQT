@@ -1,7 +1,7 @@
 #include "recipeeditordialog.h"
 #include "ui_recipeeditordialog.h"
 
-RecipeEditorDialog::RecipeEditorDialog(QWidget *parent, Recipe *recipe) :
+RecipeEditorDialog::RecipeEditorDialog(QWidget *parent, Recipe *recipe, QString title) :
     QDialog(parent),
     ui(new Ui::RecipeEditorDialog) // pass recipe into constructor.
 {
@@ -13,24 +13,35 @@ RecipeEditorDialog::RecipeEditorDialog(QWidget *parent, Recipe *recipe) :
         initializeFields();
     } else {
         _recipe = new Recipe();
-        setWindowTitle("Add Recipe");
     }
-}
 
-void RecipeEditorDialog::initializeFields() {
-    ui->lineRecipeName->setText(_recipe->getName());
-    ui->txtRecipeInstruction->setText(_recipe->getInstruction());
-
-    ui->listIngredients->clear();
-    foreach(auto ingredient, _recipe->getIngredients()) {
-        ui->listIngredients->addItem(ingredient.getShowName());
-    }
+    setWindowTitle(title);
 }
 
 RecipeEditorDialog::~RecipeEditorDialog()
 {
     delete _recipe;
     delete ui;
+}
+
+void RecipeEditorDialog::initializeFields() {
+    ui->lineRecipeName->setText(_recipe->getName());
+    ui->txtRecipeInstruction->setText(_recipe->getInstruction());
+    initializeIngredientList();
+    clearIngredientInputFields();
+}
+
+void RecipeEditorDialog::initializeIngredientList() {
+    ui->listIngredients->clear();
+    foreach(auto ingredient, _recipe->getIngredients()) {
+        ui->listIngredients->addItem(ingredient.getShowName());
+    }
+}
+
+void RecipeEditorDialog::clearIngredientInputFields() {
+    ui->lineIngredientAmount->clear();
+    ui->lineIngredientMeasurement->clear();
+    ui->lineIngredientName->clear();
 }
 
 void RecipeEditorDialog::on_btnAddIngredient_clicked()
@@ -50,12 +61,13 @@ void RecipeEditorDialog::on_btnAddIngredient_clicked()
         amountNumeric += ingredients[indexOfIngredient].getQuantity().toDouble();
         Ingredient ingredientToUpdate = Ingredient(name, QString::number(amountNumeric), measurementVal);
         _recipe->updateIngredientAt(indexOfIngredient, ingredientToUpdate);
-        initializeFields();
     } else {
         Ingredient ingredientToAdd = Ingredient(name, QString::number(amountNumeric), measurementVal);
         _recipe->addIngredient(ingredientToAdd);
         ui->listIngredients->addItem(ingredientToAdd.getShowName());
     }
+
+    clearIngredientInputFields();
 }
 
 bool RecipeEditorDialog::validateIngredientInput(QString name, QString amount, QString measurementVal) {

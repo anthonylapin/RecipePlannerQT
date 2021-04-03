@@ -15,7 +15,7 @@ class RecipeEditorDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit RecipeEditorDialog(QWidget *parent = nullptr, Recipe* recipe = nullptr);
+    explicit RecipeEditorDialog(QWidget *parent = nullptr, Recipe* recipe = nullptr, QString title = "Edit Recipe");
     ~RecipeEditorDialog();
 
 private slots:
@@ -33,7 +33,11 @@ private:
     Recipe* _recipe;
 
     void initializeFields();
+    void initializeIngredientList();
+
     bool validateIngredientInput(QString name, QString amount, QString measurementVal);
+
+    void clearIngredientInputFields();
 };
 
 #endif // RECIPEEDITORDIALOG_H

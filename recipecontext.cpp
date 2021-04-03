@@ -102,6 +102,7 @@ QJsonDocument RecipeContext::parseRecipesToJsonDocument() {
 
 void RecipeContext::saveChangesToJsonFile(QJsonDocument doc) {
     QString fileName = getRecipesFilePath();
+    QFile::resize(fileName, 0);
     QFile file;
     file.setFileName(fileName);
     file.open(QIODevice::ReadWrite);
@@ -112,4 +113,8 @@ void RecipeContext::saveChangesToJsonFile(QJsonDocument doc) {
 void RecipeContext::saveChanges() {
    QJsonDocument doc = parseRecipesToJsonDocument();
    saveChangesToJsonFile(doc);
+}
+
+void RecipeContext::deleteRecipe(int index) {
+    _recipes.removeAt(index);
 }

@@ -18,22 +18,38 @@
     {
         "ingredients": [
             {
-                "measurementValue": "shtuka",
-                "name": "ham",
+                "measurementValue": "pcs",
+                "name": "egg",
                 "quantity": "1"
             },
             {
-                "measurementValue": "shtuka",
-                "name": "bread",
+                "measurementValue": "cups",
+                "name": "flour",
+                "quantity": "2.5"
+            },
+            {
+                "measurementValue": "teaspoon",
+                "name": "salt",
                 "quantity": "1"
             },
             {
-                "measurementValue": "slice",
-                "name": "cheese",
-                "quantity": "3"
+                "measurementValue": "tablespoons",
+                "name": "olive oil",
+                "quantity": "2"
+            },
+            {
+                "measurementValue": "ounce",
+                "name": "active dry yeast",
+                "quantity": "0.25"
             }
         ],
-        "instruction": "Put ham on bread",
-        "name": "sandwitch"
+        "instruction": "Preheat oven to 450 degrees F (230 degrees C).In a medium bowl, dissolve yeast and sugar in warm water. Let stand until creamy, about 10 minutes. Stir in flour, salt and oil. Beat until smooth. Let rest for 5 minutes. Turn dough out onto a lightly floured surface and pat or roll into a round. Transfer crust to a lightly greased pizza pan or baker's peel dusted with cornmeal. Spread with desired toppings and bake in preheated oven for 15 to 20 minutes, or until golden brown. Let baked pizza cool for 5 minutes before serving.",
+        "name": "pizza"
+    },
+    {
+        "ingredients": [
+        ],
+        "instruction": "",
+        "name": ""
     }
 ]

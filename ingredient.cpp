@@ -29,3 +29,7 @@ QString Ingredient::getMeasurementValue() {
 QString Ingredient::getShowName() {
     return _name + " " + _quantity + " " + _measurementValue;
 }
+
+void Ingredient::setQuantity(QString quantity) {
+    _quantity = quantity;
+}

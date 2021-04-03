@@ -15,6 +15,7 @@ public:
     QList<Recipe> getRecipes();
     void updateRecipeAt(int index, Recipe recipe);
     void addRecipe(Recipe recipe);
+    void deleteRecipe(int index);
     void saveChanges();
 private:
     QList<Recipe> _recipes;

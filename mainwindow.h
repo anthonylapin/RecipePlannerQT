@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "recipecontext.h"
 #include "recipeeditordialog.h"
+#include "shoppingcartdialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,11 +29,14 @@ private slots:
 
     void on_recipesList_currentRowChanged(int currentRow);
 
+    void on_btnDeleteRecipe_clicked();
+
 private:
     Ui::MainWindow *ui;
 
     RecipeContext _recipeContext;
     RecipeEditorDialog* _recipeEditorDialog;
+    ShoppingCartDialog* _shoppingCartDialog;
 
     void setRecipesListWidget();
 };

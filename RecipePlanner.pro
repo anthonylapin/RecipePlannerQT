@@ -14,18 +14,21 @@ SOURCES += \
     mainwindow.cpp \
     recipe.cpp \
     recipecontext.cpp \
-    recipeeditordialog.cpp
+    recipeeditordialog.cpp \
+    shoppingcartdialog.cpp
 
 HEADERS += \
     ingredient.h \
     mainwindow.h \
     recipe.h \
     recipecontext.h \
-    recipeeditordialog.h
+    recipeeditordialog.h \
+    shoppingcartdialog.h
 
 FORMS += \
     mainwindow.ui \
-    recipeeditordialog.ui
+    recipeeditordialog.ui \
+    shoppingcartdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -10,8 +10,11 @@ MainWindow::MainWindow(QWidget *parent)
     setRecipesListWidget();
 }
 
-void MainWindow::on_actionCreate_Shopping_List_triggered()
+MainWindow::~MainWindow()
 {
+    delete _recipeEditorDialog;
+    delete _shoppingCartDialog;
+    delete ui;
 }
 
 void MainWindow::on_actionExit_triggered()
@@ -19,16 +22,10 @@ void MainWindow::on_actionExit_triggered()
     QApplication::quit();
 }
 
-MainWindow::~MainWindow()
-{
-    delete _recipeEditorDialog;
-    delete ui;
-}
-
 void MainWindow::on_addRecipeButton_clicked()
 {
     Recipe r;
-    _recipeEditorDialog = new RecipeEditorDialog(this, &r);
+    _recipeEditorDialog = new RecipeEditorDialog(this, &r, "Add Recipe");
     _recipeEditorDialog->show();
     if (_recipeEditorDialog->exec() == QDialog::Accepted) {
         _recipeContext.addRecipe(r);
@@ -52,6 +49,16 @@ void MainWindow::on_btnEditRecipe_clicked()
     }
 }
 
+void MainWindow::on_actionCreate_Shopping_List_triggered()
+{
+    _shoppingCartDialog = new ShoppingCartDialog(this, _recipeContext.getRecipes());
+    _shoppingCartDialog->show();
+
+    if(_shoppingCartDialog->exec() == QDialog::Accepted) {
+        QMessageBox::information(this, "Ingredients to buy", _shoppingCartDialog->getShoppingCart());
+    }
+}
+
 void MainWindow::setRecipesListWidget() {
     ui->btnEditRecipe->setDisabled(true);
     ui->recipesList->clear();
@@ -65,4 +72,19 @@ void MainWindow::on_recipesList_currentRowChanged(int currentRow)
     if (currentRow > -1) {
         ui->btnEditRecipe->setDisabled(false);
     }
+}
+
+void MainWindow::on_btnDeleteRecipe_clicked()
+{
+    int currElemId = ui->recipesList->currentRow();
+
+    if(currElemId > -1 && _recipeContext.getRecipes().count() > currElemId) {
+        _recipeContext.deleteRecipe(currElemId);
+        _recipeContext.saveChanges();
+        QMessageBox::information(this, "Delete recipe", "Recipe was deleted successfully!");
+        setRecipesListWidget();
+    } else {
+        QMessageBox::warning(this, "Delete recipe", "Error ocurred while deleting recipe.");
+    }
+
 }

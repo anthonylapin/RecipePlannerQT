@@ -53,7 +53,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_3">
+             <widget class="QPushButton" name="btnDeleteRecipe">
               <property name="text">
                <string>Delete Recipe</string>
               </property>
