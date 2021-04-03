@@ -3,6 +3,7 @@ EGUI Laboratory exercise 1
 
 - Simple Recipe Planner application using Qt And C++
 - Data should be stored in text files in selected folder (format explained at the end)
+- Specify full path to your recipes.json file in config.json file.
 
 ### Main screen
 - Displays list of all available recipes
