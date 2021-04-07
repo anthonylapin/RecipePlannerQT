@@ -51,6 +51,12 @@ void MainWindow::on_addRecipeButton_clicked()
 void MainWindow::on_btnEditRecipe_clicked()
 {
     int currElemId = ui->recipesList->currentRow();
+
+    if (currElemId >= _recipeContext.getRecipes().count() || currElemId < 0) {
+        QMessageBox::warning(this, "No inregdient were selected", "No ingredient were selected");
+        return;
+    }
+
     auto currElem = _recipeContext.getRecipes().at(currElemId);
 
     _recipeEditorDialog = new RecipeEditorDialog(this, &currElem);

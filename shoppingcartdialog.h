@@ -5,6 +5,7 @@
 #include <QListWidgetItem>
 #include "recipe.h"
 #include "ingredient.h"
+#include <algorithm>
 
 namespace Ui {
 class ShoppingCartDialog;

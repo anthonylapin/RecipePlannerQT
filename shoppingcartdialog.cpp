@@ -1,6 +1,5 @@
 #include "shoppingcartdialog.h"
 #include "ui_shoppingcartdialog.h"
-#include <algorithm>
 
 ShoppingCartDialog::ShoppingCartDialog(QWidget *parent, QList<Recipe> recipes) :
     QDialog(parent),

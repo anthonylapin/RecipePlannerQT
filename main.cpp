@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "recipecontext.h"
 
 #include <QApplication>
 

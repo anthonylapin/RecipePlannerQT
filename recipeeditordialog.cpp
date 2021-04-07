@@ -66,6 +66,7 @@ void RecipeEditorDialog::on_btnAddIngredient_clicked()
     }
 
     clearIngredientInputFields();
+    initializeIngredientList();
 }
 
 bool RecipeEditorDialog::validateIngredientInput(QString name, QString amount, QString measurementVal) {
@@ -93,8 +94,10 @@ bool RecipeEditorDialog::validateIngredientInput(QString name, QString amount, Q
 void RecipeEditorDialog::on_btnDeleteIngredient_clicked()
 {
     int indexToDel = ui->listIngredients->currentIndex().row();
-    ui->listIngredients->model()->removeRow(indexToDel);
-    _recipe->removeIngredient(indexToDel);
+    if (indexToDel >= 0 && ui->listIngredients->count() > indexToDel && _recipe->getIngredients().count() > indexToDel) {
+        ui->listIngredients->model()->removeRow(indexToDel);
+        _recipe->removeIngredient(indexToDel);
+    }
 }
 
 void RecipeEditorDialog::on_lineRecipeName_textChanged(const QString &arg1)
