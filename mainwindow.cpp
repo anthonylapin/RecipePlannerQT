@@ -33,6 +33,10 @@ void MainWindow::setRecipesListWidget() {
     foreach(auto recipe, _recipeContext.getRecipes()) {
         ui->recipesList->addItem(recipe.getName());
     }
+
+    if (ui->recipesList->count() > 0) {
+        ui->recipesList->setCurrentRow(0);
+    }
 }
 
 void MainWindow::on_addRecipeButton_clicked()
