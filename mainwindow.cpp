@@ -74,7 +74,7 @@ void MainWindow::on_btnDeleteRecipe_clicked()
 {
     int currElemId = ui->recipesList->currentRow();
 
-    if(currElemId > -1 && _recipeContext.getRecipes().count() > currElemId) {
+    if(currElemId >= 0 && _recipeContext.getRecipes().count() > currElemId && ui->recipesList->count() > currElemId) {
         _recipeContext.deleteRecipe(currElemId);
         _recipeContext.saveChanges();
         QMessageBox::information(this, "Delete recipe", "Recipe was deleted successfully!");

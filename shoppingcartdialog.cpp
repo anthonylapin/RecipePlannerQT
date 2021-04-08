@@ -46,10 +46,6 @@ void ShoppingCartDialog::on_buttonBox_accepted()
     }
 
     std::sort(_shoppingCart.begin(), _shoppingCart.end(), Ingredient::compare);
-
-    foreach(auto ingredient, _shoppingCart) {
-        qDebug() << ingredient.getShowName();
-    }
 }
 
 void ShoppingCartDialog::addRecipeIngredientsToShoppingCart(Recipe recipe) {
