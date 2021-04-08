@@ -10,6 +10,11 @@ QJsonDocument RecipeContext::readJsonDocument(QString fileName) {
     file.setFileName(fileName);
 
     file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+    if(!file.isOpen()) {
+        return QJsonDocument::fromJson("");
+    }
+
     QString content = file.readAll();
     file.close();
 
